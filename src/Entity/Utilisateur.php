@@ -36,6 +36,8 @@ class Utilisateur
      * @ORM\Column(type="string", length=50)
      */
     private $Email;
+	
+	public $confirm_password;
 
     public function getId(): ?int
     {
