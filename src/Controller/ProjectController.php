@@ -71,6 +71,7 @@ class ProjectController extends AbstractController
     {
 	// Affiche la liste de tous les utilisateurs
 	$mesUtilisateurs=$manager->getRepository(Utilisateur::class)->findAll();
+	//echo $mesUtilisateurs;
 	return $this->render('project/liste_utilisateurs.html.twig',['utilisateurs' => $mesUtilisateurs]);
 	}
 }
