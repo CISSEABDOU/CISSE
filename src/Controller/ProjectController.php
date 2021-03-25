@@ -21,12 +21,13 @@ class ProjectController extends AbstractController
             'controller_name' => 'ProjectController',
         ]);
     }
+	
 	/**
-     * @Route("/listeutilisateur", name="listeutilisateur")
+     * @Route("/inscription", name="inscription")
      */
-    public function listeutilisateur(): Response
+    public function inscription(): Response
     {
-        return $this->render('project/listeutilisateur.html.twig', [
+        return $this->render('project/registration.html.twig', [
             'controller_name' => 'ProjectController',
         ]);
     }
@@ -35,7 +36,7 @@ class ProjectController extends AbstractController
 	 /**
      * @Route("/registration", name="registration")
      */
-    public function registration(LoggerInterface $logeer,Request $request,EntityManagerInterface $manager):response
+    public function registration(Request $request,EntityManagerInterface $manager):response
     {
 		// Récupération des données saisies
 		$Nom=$request->request->get("nom");
@@ -61,5 +62,16 @@ class ProjectController extends AbstractController
 		//Sotcker l'objet dans la base de données avec la persistance
 		$manager->persist($monUtilisateur);
         $manager->flush();
+		return new Response("utilisateur créé");
     }
+	 /**
+     * @Route("/listeUtilisateurs", name="liste_Utilisateurs")
+     */
+    public function listeUtilisateurs(EntityManagerInterface $manager):response
+    {
+	// Affiche la liste de tous les utilisateurs
+	$mesUtilisateurs=$manager->getRepository(Utilisateur::class)->findAll();
+	return $this->render('project/liste_utilisateurs.html.twig',['utilisateurs' => $mesUtilisateurs]);
+	}
 }
+
