@@ -17,9 +17,12 @@ class ProjectController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('project/index.html.twig', [
+       return $this->render('project/connexion.html.twig', [
             'controller_name' => 'ProjectController',
         ]);
+		
+		
+  
     }
 	
 	/**
@@ -45,10 +48,7 @@ class ProjectController extends AbstractController
 		$Mot_de_passe=$request->request->get("password");
 		$id=$request->request->get("id");
 		
-		if ($Nom=="admin")
-		   $message="Vous êtes admin";
-		else
-		   $message="Vous êtes utilisateur";
+	
 		
 		//Création d'un objet utilisateur
 		
@@ -67,12 +67,49 @@ class ProjectController extends AbstractController
 	 /**
      * @Route("/listeUtilisateurs", name="liste_Utilisateurs")
      */
-    public function listeUtilisateurs(EntityManagerInterface $manager):response
+    public function listeUtilisateurs(EntityManagerInterface $manager):response  
     {
 	// Affiche la liste de tous les utilisateurs
 	$mesUtilisateurs=$manager->getRepository(Utilisateur::class)->findAll();
-	//echo $mesUtilisateurs;
+	//&echo $mesUtilisateurs;
 	return $this->render('project/liste_utilisateurs.html.twig',['utilisateurs' => $mesUtilisateurs]);
 	}
-}
-
+	/** 
+     * @Route("/connexion", name="connexion")
+     */
+    public function connexion(Request $request,EntityManagerInterface $manager): Response
+    {
+    //Récupération des identifiants de connexion
+    $Email = $request->request->get('login');
+    $Mot_de_passe = $request->request->get('password');
+    //Test de l'existence d'un tel couple
+	echo "<script>alert($Email);</script>";
+	//$aUser=$manager->getRepository(Utilisateur::class)->find();//findBy(['mot_de_passe'=>$Mot_de_passe]);
+	$aUser=$this->getdoctrine()->getRepository(Utilisateur::class)->findBy(['Email'=>$Email,'Mot_de_passe'=>$Mot_de_passe]);
+    if ($aUser!=NULL){
+    $utilisateur = new Utilisateur;
+    $utilisateur = $aUser[0];
+    //démarrage des variables de session
+    $sess = $request->getSession();
+    //Information de session
+    $sess->set("idUtilisateur", $utilisateur->getId());
+    $sess->set("nomUtilisateur", $utilisateur->getNom());
+    $sess->set("prenomUtilisateur", $utilisateur->getPrenom());
+    //echo "<script>alert($sess);</script>";
+	if ($Email=="admin@gmail.com")
+		   $message="Abdou Aziz Cisse Vous êtes admin";
+		else
+		   $message="Vous êtes utilisateur";
+    return new Response("Bienvenu".$message);
+    }else{
+     return new Response("Echec authentification");
+     }
+     
+     return new response(1);
+     
+     }
+	
+	
+    
+  
+}  

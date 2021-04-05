@@ -3,22 +3,22 @@
 {% block title %}Hello ProjectController!{% endblock %}
 
 {% block body %}
-<!-- <style>
+<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-<form action="ProjectController.php" method="post">
+<form action="/connexion" method="post">
 <div class="example-wrapper">
     <h1>Bienvenue à l'accueil</h1>
     <h4>{{ controller_name }}! ✅</h4>
 	<form action="/inscription" method="POST">
   <div class="form-group">
     <label for="login">identifiant</label>
-    <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Entrer votre identifiant">
+	<input type="email" class="form-control" id="login" name="login" placeholder="Entrer un email">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">mot de passe</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter votre mot de passe">
+    <input type="password" class="form-control" id="password" name="password" placeholder="Entrer un email">
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -28,4 +28,4 @@
 </form>
 
 </div>
-{% endblock %} -->
+{% endblock %}

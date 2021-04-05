@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProjectController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="example-wrapper">
+    <h1>Ajouer des fichiers </h1>
+    <h4>{{ controller_name }}! ✅</h4>
+	<form action="/majFichier" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="fichier">ajouter fichier</label>
+	<input type="file" class="form-control" id="fichier" name="fichier" placeholder="indiquez un fichier" required>
+  </div>
+  <div class="form-group">
+     < input type="submit" class="btn btn-primary" value="{{insérer}}">
+	 </div>
+	 
+</form>
+
+</div>
+{% endblock %}
